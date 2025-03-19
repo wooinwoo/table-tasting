@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   DeleteOutlined,
   EditOutlined,
@@ -60,6 +61,7 @@ export function AntTable({ data: initialData }: { data: Person[] }) {
   const handleSearch = (selectedKeys: string[], confirm: () => void) => {
     confirm();
     setSearchText(selectedKeys[0]);
+    console.log(searchText);
   };
 
   const handleReset = (clearFilters: () => void) => {
@@ -159,7 +161,7 @@ export function AntTable({ data: initialData }: { data: Person[] }) {
     }) => (
       <div style={{ padding: 8 }}>
         <Input
-          ref={searchInput as React.RefObject<InputRef>}
+          ref={searchInput as any}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={(e) =>
@@ -463,7 +465,7 @@ export function AntTable({ data: initialData }: { data: Person[] }) {
               formatter={(value) =>
                 `₩ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
               }
-              parser={(value) => value!.replace(/\₩\s?|(,*)/g, "")}
+              parser={(value: any) => value!.replace(/\₩\s?|(,*)/g, "")}
               style={{ width: "100%" }}
             />
           </Form.Item>

@@ -134,47 +134,6 @@ const mantineTheme = {
   colorScheme: "light",
   primaryColor: "blue",
   defaultRadius: "md",
-  colors: {
-    blue: [
-      "#e3f2fd",
-      "#bbdefb",
-      "#90caf9",
-      "#64b5f6",
-      "#42a5f5",
-      "#2196f3",
-      "#1e88e5",
-      "#1976d2",
-      "#1565c0",
-      "#0d47a1",
-    ],
-  },
-  components: {
-    Table: {
-      styles: {
-        root: {
-          "& thead tr th": {
-            fontWeight: 600,
-            backgroundColor: "#f8f9fa",
-          },
-        },
-      },
-    },
-    Button: {
-      defaultProps: {
-        size: "sm",
-      },
-    },
-    TextInput: {
-      defaultProps: {
-        size: "sm",
-      },
-    },
-    Select: {
-      defaultProps: {
-        size: "sm",
-      },
-    },
-  },
 };
 
 // MUI 테마 설정을 더 자세히 정의
@@ -359,11 +318,7 @@ function App() {
         return <BootstrapTable data={sampleData} />;
       case 8:
         return (
-          <MantineProvider
-            withGlobalStyles
-            withNormalizeCSS
-            theme={mantineTheme}
-          >
+          <MantineProvider theme={mantineTheme}>
             <MantineTable data={sampleData} />
           </MantineProvider>
         );

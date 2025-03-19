@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Grid } from "gridjs-react";
 import "gridjs/dist/theme/mermaid.css";
 import { Person } from "../../data/sampleData";
-import { Button, Stack, Paper } from "@mui/material";
+import { Button, Stack, Paper, CircularProgress } from "@mui/material";
 import { h } from "gridjs";
 
 interface Props {
@@ -10,7 +11,14 @@ interface Props {
 }
 
 export function GridjsTable({ data: initialData }: Props) {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState<Person[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // 초기 데이터 설정을 useEffect 내에서 처리
+    setData(initialData);
+    setIsLoading(false);
+  }, [initialData]);
 
   const columns = [
     {
@@ -57,7 +65,7 @@ export function GridjsTable({ data: initialData }: Props) {
     },
     {
       name: "작업",
-      formatter: (_, row: any) =>
+      formatter: (_: any, row: any) =>
         h("div", {}, [
           h(
             "button",
@@ -171,37 +179,42 @@ export function GridjsTable({ data: initialData }: Props) {
         </Button>
       </Stack>
 
-      <Grid
-        data={data.map((item) => [
-          item.name,
-          item.role,
-          item.department,
-          item.age,
-          item.salary,
-          item.status,
-          item.id,
-        ])}
-        columns={columns}
-        search={true}
-        pagination={{
-          enabled: true,
-          limit: 10,
-          summary: true,
-        }}
-        sort={true}
-        language={{
-          search: {
-            placeholder: "검색...",
-          },
-          pagination: {
-            previous: "이전",
-            next: "다음",
-            showing: "보기",
-            results: () => "건",
-            of: "중",
-          },
-        }}
-      />
+      {isLoading ? (
+        <Stack alignItems="center" py={4}>
+          <CircularProgress />
+        </Stack>
+      ) : (
+        <Grid
+          data={data.map((item) => [
+            item.name,
+            item.role,
+            item.department,
+            item.age,
+            item.salary,
+            item.status,
+            item.id,
+          ])}
+          columns={columns}
+          search={true}
+          pagination={{
+            limit: 10,
+            summary: true,
+          }}
+          sort={true}
+          language={{
+            search: {
+              placeholder: "검색...",
+            },
+            pagination: {
+              previous: "이전",
+              next: "다음",
+              showing: "보기",
+              results: () => "건",
+              of: "중",
+            },
+          }}
+        />
+      )}
     </Paper>
   );
 }

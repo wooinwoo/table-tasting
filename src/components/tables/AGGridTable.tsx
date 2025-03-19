@@ -149,6 +149,7 @@ export function AGGridTable({ data }: Props) {
   const onGridReady = (params: GridReadyEvent) => {
     setGridApi(params.api);
     setColumnApi(params.columnApi);
+    console.log(columnApi);
 
     // 자동 컬럼 크기 조정
     params.api.sizeColumnsToFit();

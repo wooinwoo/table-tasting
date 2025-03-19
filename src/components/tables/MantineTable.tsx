@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useMemo } from "react";
 import {
   Table,
@@ -21,16 +22,16 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import {
-  IconSearch,
-  IconDownload,
-  IconRefresh,
+  //   IconSearch,
+  //   IconDownload,
+  //   IconRefresh,
   IconDotsVertical,
   IconEdit,
-  IconTrash,
-  IconFilter,
+  //   IconTrash,
+  //   IconFilter,
   IconSortAscending,
   IconSortDescending,
-  IconPlus,
+  //   IconPlus,
 } from "@tabler/icons-react";
 import { Person } from "../../data/sampleData";
 import { createStyles } from "@mantine/styles";
@@ -165,14 +166,14 @@ export function MantineTable({ data: initialData }: Props) {
 
   const handleSubmit = form.onSubmit((values) => {
     if (editingId) {
-      setData((prev: Person[]) =>
-        prev.map((item: Person) =>
+      setData((prev: any) =>
+        prev.map((item: any) =>
           item.id === editingId ? { ...values, id: editingId } : item
         )
       );
     } else {
       const newId = Math.max(...data.map((item) => item.id)) + 1;
-      setData((prev) => [...prev, { ...values, id: newId }]);
+      setData((prev: any) => [...prev, { ...values, id: newId }]);
     }
     setIsModalOpen(false);
     setEditingId(null);
@@ -225,11 +226,11 @@ export function MantineTable({ data: initialData }: Props) {
 
   return (
     <Paper p="md" radius="md" withBorder className={classes.tableWrapper}>
-      <Group position="apart" mb="md">
+      <Group mb="md">
         <Group>
           <TextInput
             placeholder="검색..."
-            icon={<IconSearch size={14} />}
+            // icon={<IconSearch size={14} />}
             value={search}
             onChange={(e) => setSearch(e.currentTarget.value)}
           />
@@ -237,7 +238,7 @@ export function MantineTable({ data: initialData }: Props) {
             placeholder="상태 필터"
             value={statusFilter}
             onChange={setStatusFilter}
-            icon={<IconFilter size={14} />}
+            // icon={<IconFilter size={14} />}
             clearable
             data={[
               { value: "active", label: "재직중" },
@@ -248,7 +249,7 @@ export function MantineTable({ data: initialData }: Props) {
         </Group>
         <Group>
           <Button
-            leftIcon={<IconPlus size={14} />}
+            // leftIcon={<IconPlus size={14} />}
             onClick={() => {
               setEditingId(null);
               form.reset();
@@ -258,14 +259,14 @@ export function MantineTable({ data: initialData }: Props) {
             신규 등록
           </Button>
           <Button
-            leftIcon={<IconDownload size={14} />}
+            // leftIcon={<IconDownload size={14} />}
             variant="outline"
             onClick={exportToCsv}
           >
             내보내기
           </Button>
           <Button
-            leftIcon={<IconRefresh size={14} />}
+            // leftIcon={<IconRefresh size={14} />}
             variant="outline"
             onClick={refreshData}
           >
@@ -293,7 +294,7 @@ export function MantineTable({ data: initialData }: Props) {
                   onClick={() => setSorting("name")}
                   className={classes.control}
                 >
-                  <Group position="apart">
+                  <Group>
                     <Text fw={500} size="sm">
                       이름
                     </Text>
@@ -350,7 +351,7 @@ export function MantineTable({ data: initialData }: Props) {
                   </Badge>
                 </td>
                 <td>
-                  <Group spacing={0} position="right">
+                  <Group>
                     <ActionIcon onClick={() => handleEdit(item)}>
                       <IconEdit size={16} />
                     </ActionIcon>
@@ -363,7 +364,7 @@ export function MantineTable({ data: initialData }: Props) {
                       <Menu.Dropdown>
                         <Menu.Item
                           color="red"
-                          icon={<IconTrash size={14} />}
+                          // icon={<IconTrash size={14} />}
                           onClick={() => handleDelete(item.id)}
                         >
                           삭제

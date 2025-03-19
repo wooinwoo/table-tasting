@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useMemo } from "react";
 import {
   useReactTable,
@@ -7,6 +8,7 @@ import {
   getSortedRowModel,
   ColumnDef,
   flexRender,
+  SortingState,
 } from "@tanstack/react-table";
 import {
   Table,
@@ -48,7 +50,7 @@ interface Props {
 export function ReactTableMaterial({ data: initialData }: Props) {
   const [data, setData] = useState(initialData);
   const [globalFilter, setGlobalFilter] = useState("");
-  const [sorting, setSorting] = useState<any[]>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRow, setEditingRow] = useState<Person | null>(null);
   const [formData, setFormData] = useState<Partial<Person>>({});
@@ -332,7 +334,7 @@ export function ReactTableMaterial({ data: initialData }: Props) {
             <Select
               value={formData.status || ""}
               onChange={(e) =>
-                setFormData((prev) => ({
+                setFormData((prev: any) => ({
                   ...prev,
                   status: e.target.value as string,
                 }))

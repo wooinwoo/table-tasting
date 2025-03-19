@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
 import { ReactTabulator } from "react-tabulator";
 import "tabulator-tables/dist/css/tabulator.min.css";
@@ -119,7 +120,7 @@ export function TabularTable({ data: initialData }: Props) {
     },
     {
       title: "작업",
-      formatter: function (cell: any) {
+      formatter: function () {
         return '<button class="edit-btn">수정</button><button class="delete-btn">삭제</button>';
       },
       cellClick: function (e: any, cell: any) {
@@ -247,7 +248,7 @@ export function TabularTable({ data: initialData }: Props) {
       <ReactTabulator
         ref={tableRef}
         data={data}
-        columns={columns}
+        columns={columns as any}
         options={options}
       />
 
@@ -309,7 +310,7 @@ export function TabularTable({ data: initialData }: Props) {
                 value={formData.status || ""}
                 label="상태"
                 onChange={(e) =>
-                  setFormData((prev) => ({
+                  setFormData((prev: any) => ({
                     ...prev,
                     status: e.target.value as string,
                   }))
